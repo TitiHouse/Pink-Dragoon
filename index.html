@@ -241,7 +241,7 @@
         .menu-btn { padding: 10px 15px; background-color: var(--rose-moyen); color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
         .menu-btn:hover { background-color: var(--rose-principal); }
         .menu-content { display: none; position: absolute; background-color: white; min-width: 300px; box-shadow: 0 8px 16px rgba(0,0,0,0.2); z-index: 10; border-radius: 4px; padding: 15px; right: 0; bottom: auto; top: 100%; margin-top: 2px; }
-        .menu-content.show { display: block; }
+        /* .menu-content.show est défini plus bas, après #menu-reset-content */
         .menu-section { margin-bottom: 15px; }
         .menu-section:last-child { margin-bottom: 0; }
         .menu-section h3 { margin-top: 0; margin-bottom: 8px; color: var(--rose-principal); font-size: 16px; }
@@ -250,14 +250,83 @@
         .btn-ajouter { background-color: #4CAF50; color: white; }
         .btn-supprimer { background-color: #f44336; color: white; }
         .menu-action-btn:hover { opacity: 0.9; }
-        .menu-reset-container { position: fixed; bottom: 20px; right: 20px; z-index: 10; }
+
+        /* --- Conteneur Réinitialiser (MODIFIÉ: Fixe en bas à GAUCHE) --- */
+        .menu-reset-container {
+            position: fixed;    /* Garde la position fixe */
+            bottom: 20px;
+            left: 20px;     /* MODIFIÉ: Positionné à gauche */
+            z-index: 10;
+        }
         .menu-reset-btn { padding: 10px 15px; background-color: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
         .menu-reset-btn:hover { background-color: #c82333; }
-        #menu-reset-content { min-width: 250px; right: 0; bottom: 100%; top: auto; margin-bottom: 5px; }
-        #menu-reset-content button { display: block; width: 100%; padding: 10px; margin-bottom: 8px; text-align: left; background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 4px; cursor: pointer; font-size: 14px; color: #333; }
+
+        /* --- Conteneur Regénérer (AJOUTÉ: Fixe en bas à DROITE) --- */
+        #regenerate-container {
+            position: fixed; /* Pour le faire flotter */
+            bottom: 20px;   /* Position en bas */
+            right: 20px;    /* Position à droite */
+            z-index: 10;    /* Même niveau que Reset */
+        }
+        /* Style pour que le bouton Regénérer conserve son look */
+        #regenerate-container button {
+            font-size: 15px;
+            padding: 10px 20px;
+            background-color: var(--rose-moyen);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            min-width: 160px;
+        }
+        #regenerate-container button:hover {
+            background-color: var(--rose-principal);
+        }
+        /* --- Fin Styles Bouton Regénérer Flottant --- */
+
+        /* --- Contenu du Menu Réinitialiser (MODIFIÉ: Alignement à gauche) --- */
+        #menu-reset-content {
+            /* Styles essentiels copiés de .menu-content et ajustés */
+            display: none;          /* Caché par défaut */
+            position: absolute;     /* Positionné par rapport à .menu-reset-container */
+            background-color: white;
+            min-width: 250px;       /* Largeur minimale */
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 10;            /* Au-dessus du bouton */
+            border-radius: 4px;
+            padding: 15px;
+            /* Positionnement MODIFIÉ */
+            left: 0;            /* MODIFIÉ: Aligné à gauche du conteneur */
+            bottom: 100%;       /* S'ouvre vers le haut */
+            top: auto;
+            margin-bottom: 5px;   /* Espace entre bouton et menu */
+        }
+
+        /* Règle commune pour afficher les menus (incluant #menu-reset-content) */
+        .menu-content.show {
+             display: block;
+        }
+
+        /* Styles des boutons à l'intérieur du menu Reset */
+        #menu-reset-content button {
+             display: block;
+             width: 100%;
+             padding: 10px;
+             margin-bottom: 8px;
+             text-align: left;
+             background-color: #f8f9fa;
+             border: 1px solid #dee2e6;
+             border-radius: 4px;
+             cursor: pointer;
+             font-size: 14px;
+             color: #333;
+        }
         #menu-reset-content button:last-child { margin-bottom: 0; }
         #menu-reset-content button:hover { background-color: #e9ecef; border-color: #adb5bd; }
-        #menu-reset-content h3 { color:var(--rose-moyen); } /* Adaptation titre menu reset */
+        #menu-reset-content h3 { color:var(--rose-moyen); margin-top: 0; margin-bottom: 8px; } /* Adaptation titre menu reset */
 
         .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.2); z-index: 5; }
         .overlay.show { display: block; }
@@ -414,12 +483,13 @@
         </div>
 
         <div class="button-group">
-            <button onclick="forcerRegeneration()" title="Relance l'algorithme d'assignation pour le Matin ET le Soir. Écrase le planning sauvegardé pour ce mois.">Regénérer les Plannings</button>
             <button onclick="exporterTableauEnPDF('tableau-combiné', 'Global')" title="Télécharge le planning global Matin/Soir (avec éditions manuelles du soir et D&D)">Exporter Planning Global (PDF)</button>
             <button onclick="exporterTableauEnPDF('tableau-emploi-du-temps', 'Matin_Detail')" title="Télécharge le planning détaillé Matin (reflète D&D)">Exporter Planning Matin (PDF)</button>
             <button onclick="exporterTableauEnPDF('tableau-emploi-du-temps-soir', 'Soir_Detail')" title="Télécharge le planning détaillé Soir (reflète éditions et D&D)">Exporter Planning Soir (PDF)</button>
         </div>
-
+        <div id="regenerate-container">
+            <button onclick="forcerRegeneration()" title="Relance l'algorithme d'assignation pour le Matin ET le Soir. Écrase le planning sauvegardé pour ce mois.">Regénérer les Plannings</button>
+        </div>
         <div class="menu-reset-container">
             <button class="menu-reset-btn" onclick="toggleMenuReset()" title="Options pour effacer les données">Réinitialiser...</button>
             <div id="menu-reset-content" class="menu-content">
