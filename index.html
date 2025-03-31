@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#D9006C"/> <title>Gestion des Désidératats & Plannings</title>
+    <meta name="theme-color" content="#D9006C"/> <title>Pink Dragoon</title>
 
     <style>
         /* Styles CSS (Thème Rose/Fuchsia avec Soir Mauve) */
@@ -118,7 +118,12 @@
             min-width: 18px; /* Largeur minimale pour V/?/X */
             text-align: center;
         }
-
+        h2 span.btn-desiderata {
+            vertical-align: middle; /* Essaie cette valeur en premier */
+        /* Ajuste légèrement si besoin, exemple : */
+        /* vertical-align: -2px; */ /* Déplace vers le haut de 2px */
+        /* vertical-align: text-bottom; */ /* Autre option à tester */
+        }
         /* Style spécifique bouton V */
         .btn-desiderata.btn-v { background-color: var(--vert-ok); }
         .btn-desiderata.btn-v:hover { background-color: #218838; }
@@ -413,7 +418,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Gestion des Désidératats & Plannings</h1>
+        <h1>Pink Dragoon</h1>
 
         <label for="select-mois">Mois :</label>
         <select id="select-mois" onchange="changerMois()">
@@ -431,9 +436,9 @@
         </div>
         <div id="overlay-menus" class="overlay"></div> <div id="message-info-chargement"></div>
 
-         <div id="pdf-export-loader"></div> <div class="section-collapsible active" id="section-details-matin"> <h2 class="collapsible-trigger">Détails Matin (Désidératats & Compétences)</h2>
+         <div id="pdf-export-loader"></div> <div class="section-collapsible active" id="section-details-matin"> <h2 class="collapsible-trigger">Matin : Disponibilités et compétences</h2>
             <div class="contenu-collapsible">
-                <h2>Désidératats Matin (V: Veut, X: Repos, ?: Indifférent)</h2>
+                <h2>Matin (<span class="btn-desiderata btn-v">V</span>:&nbsp;Travail si compétent, <span class="btn-desiderata btn-x">X</span>:&nbsp;Repos, <span class="btn-desiderata btn-interro">?</span>:&nbsp;Indifférent)</h2>
                 <div class="table-container"> <table id="tableau-désidératats"><thead><tr><th>Collab.</th></tr></thead><tbody></tbody></table> </div>
                 <h2>Compétences Matin (Listes)</h2>
                 <div class="table-container"> <table id="tableau-Listes"><thead><tr><th>Collab.</th></tr></thead><tbody></tbody></table> </div>
@@ -450,11 +455,11 @@
 
         <hr style="border: none; border-top: 3px solid var(--rose-principal); margin: 40px 0;">
 
-        <div class="section-collapsible active" id="section-details-soir"> <h2 class="collapsible-trigger">Détails Soir (Désidératas & Aptitudes)</h2>
+        <div class="section-collapsible active" id="section-details-soir"> <h2 class="collapsible-trigger">Soir (Disponibilités et compétences)</h2>
             <div class="contenu-collapsible">
-                <h2>Désidératats du Soir (V: Veut, X: Repos, ?: Indifférent)</h2>
+                <h2>Soir (<span class="btn-desiderata btn-v">V</span>:&nbsp;Travail si compétent, <span class="btn-desiderata btn-x">X</span>:&nbsp;Repos, <span class="btn-desiderata btn-interro">?</span>:&nbsp;Indifférent)</h2>
                 <div class="table-container"> <table id="tableau-désidératats-soir"><thead><tr><th>Collab.</th></tr></thead><tbody></tbody></table> </div>
-                <h2>Aptitudes du Soir (Postes)</h2>
+                <h2>Compétences Soir (Listes)</h2>
                 <div class="table-container"> <table id="tableau-aptitudes-soir"><thead><tr><th>Collab.</th></tr></thead><tbody></tbody></table> </div>
             </div>
          </div>
@@ -472,7 +477,7 @@
 
         <hr style="border: none; border-top: 3px solid var(--rose-principal); margin: 40px 0;">
 
-        <h2 style="margin-top: 30px;">PLANNING GLOBAL (Matin / Soir) - Édition Soir par clic, Glisser-Déposer pour déplacer (même jour)</h2>
+        <h2 style="margin-top: 30px;">Plannig Global (Cliquer pour modifier)</h2>
         <div class="table-container">
             <table id="tableau-combiné">
                 <thead><tr><th>Collaborateur</th></tr></thead>
