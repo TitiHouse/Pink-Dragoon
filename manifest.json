@@ -1,5 +1,5 @@
 {
-    "name": "Gestion Désidératats & Plannings",
+    "name": "Pink Dragoon",
     "short_name": "Plannings",
     "description": "Application pour gérer les désidératats et générer des plannings.",
     "start_url": ".", // Lance index.html qui est dans le même dossier
